@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.daniellq.cleantabs.App;
 import com.daniellq.cleantabs.R;
 import com.daniellq.cleantabs.firstFragment.presenter.FirstFragmentPresenter;
-import com.daniellq.cleantabs.firstFragment.presenter.FirstFragmentPresenterImpl;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +28,7 @@ public class FirstFragment extends Fragment implements FirstFragmentView {
     ProgressBar mProgressBar;
     Unbinder unbinder;
 
-    private FirstFragmentPresenter mPresenter;
+    @Inject FirstFragmentPresenter mPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +36,7 @@ public class FirstFragment extends Fragment implements FirstFragmentView {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_first, container, false);
         unbinder = ButterKnife.bind(this, rootView);
-        mPresenter = new FirstFragmentPresenterImpl(this);
+        App.getFirstFragmentComponent(this).inject(this);
         return rootView;
     }
 
